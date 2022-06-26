@@ -10,8 +10,6 @@ cmake_minimum_required(VERSION 3.18.1)
 project("jnilib")
 
 
-set(DEPENDENCIES_LIBS_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI})
-
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
@@ -57,7 +55,7 @@ set_target_properties(
         PROPERTIES IMPORTED_LOCATION
 
         # Provides the path to the library you want to import.
-        ${DEPENDENCIES_LIBS_PATH}/libnativelib.so
+        ${CMAKE_CURRENT_SOURCE_DIR}/../nativelib/build/intermediates/cmake/debug/obj/arm64-v8a/libnativelib.so
 )
 
 target_link_libraries( # Specifies the target library.
