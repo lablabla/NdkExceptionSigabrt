@@ -5,8 +5,8 @@
 
 using namespace test::exception;
 
-MyException::MyException(const char* msg, BlStatus status) :
-        m_impl(std::make_unique<MyException::BlExceptionImpl>(msg, status))
+MyException::MyException(const char* msg, int status) :
+        m_impl(std::make_unique<MyException::MyExceptionImpl>(msg, status))
 {
 
 }
@@ -48,7 +48,7 @@ int MyException::status() const
     return m_impl->status();
 }
 
-MyException::MyExceptionImpl::MyExceptionImpl(const char* msg, BlStatus status) :
+MyException::MyExceptionImpl::MyExceptionImpl(const char* msg, int status) :
         m_status(status)
 {
     if (strlen(msg) > MAX_LEN)
