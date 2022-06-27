@@ -1,0 +1,51 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+    ndkVersion '21.4.7075529'
+
+    defaultConfig {
+        minSdkVersion 27
+        targetSdkVersion 30
+
+        ndk {
+            abiFilters = ['arm64-v8a']
+        }
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++17 -static-openmp -fopenmp -fexceptions -frtti -Wno-unused-command-line-argument -Wl,-s"
+                cppFlags "-Wl,--exclude-libs,libc++_static.a -Wl,--exclude-libs,libc++abi.a"
+                arguments "-DANDROID_STL=c++_static", "-DANDROID_ARM_NEON=TRUE"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            jniDebuggable true
+            renderscriptDebuggable true
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+            version "3.18.1"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+}
